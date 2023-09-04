@@ -1,0 +1,41 @@
+pipeline {
+    agent any // Run the pipeline on any available agent
+
+    stages {
+        stage('Build') {
+            steps {
+                // Build your application (e.g., compile code, run tests)
+                sh 'echo build' // Replace with your build commands
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run automated tests (e.g., unit tests, integration tests)
+                sh 'echo test' // Replace with your test commands
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                // Define when to run this stage (e.g., only on the 'master' branch)
+                expression { currentBuild.branch == 'master' }
+            }
+            steps {
+                // Deploy your application (e.g., to a staging or production environment)
+                sh 'echo deploy' // Replace with your deployment commands
+            }
+        }
+    }
+
+    post {
+        success {
+            // Actions to perform on a successful build (e.g., notifications)
+            echo 'Build successful!'
+        }
+        failure {
+            // Actions to perform on a failed build (e.g., notifications)
+            echo 'Build failed!'
+        }
+    }
+}
